@@ -6,19 +6,15 @@
         <div class="column is-6">
           <div class="box">
             <div class="container">
-
               <b-field label="E-post">
                 <b-input type="email" required v-model="input"></b-input>
               </b-field>
-
               <b-field label="Lösenord">
-                <b-input type="password" required value="" password-reveal></b-input>
+                <b-input type="password" required value="" v-model="password" password-reveal></b-input>
               </b-field>
-
               <b-field>
-                <b-input type="button" value="Logga in" @click.native="checkForValidEmail"></b-input>
+                <b-input type="button" value="Logga in" @click.native="login"></b-input>
               </b-field>
-
             </div>
           </div>
         </div>
@@ -27,20 +23,39 @@
   </div>
 </template>
 <script>
+import authAction from "@/components/Actions/handlers/Account";
 export default {
   name: "SignIn",
   data() {
     return {
       input: "",
-      fullEmail: ""
+      fullEmail: "",
+      password: ""
     };
   },
   methods: {
         checkForValidEmail() {
-            this.fullEmail = this.input + '@iths.se'
-            console.log(this.fullEmail)
-        }
+          const isValid= /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+            //this.fullEmail = this.input + '@iths.se'
+          return isValid.test(this.input);
+        },
+    async login(){
+          /*
+          * Använder min gamla api controller från tidigare projekt. 
+          * https://github.com/chipet94/web.net.labb4/tree/master/web.net.labb4/ClientApp/src/components/Actions
+          * 
+          * Sparar userData under localStorage["userData"]
+          * */
+          if (this.checkForValidEmail()){
+            await authAction("login", this.onSuccess, {email: this.input, password: this.password})
+          }
+    },
+    onSuccess(){
+          let userdata = JSON.parse(localStorage["userData"])  // exempel
+          console.log(userdata)
+          alert("Success! Token: "+ userdata.token)
     }
+  }
 };
 </script>
 <style scoped>
