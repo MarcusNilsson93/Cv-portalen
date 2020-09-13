@@ -56,7 +56,18 @@ namespace API_CVPortalen
                         ValidateAudience = false
                     };
                 });
-            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("VueCorsPolicy", builder =>
+                {
+                    builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .WithOrigins("http://localhost:8080");
+                });
+            });
+            services.AddSpaStaticFiles(options => options.RootPath = "cv-bank/dist");
             services.AddScoped<IUserService, UserService>();
             services.AddControllers();
         }
@@ -67,6 +78,11 @@ namespace API_CVPortalen
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
 
@@ -74,10 +90,20 @@ namespace API_CVPortalen
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+            app.UseCors("VueCorsPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+            app.UseSpaStaticFiles();
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "cv-bank";
+                if (env.IsDevelopment())
+                {
+                    // Launch development server for Vue.js
+                    spa.UseVueDevelopmentServer();
+                }
             });
         }
     }

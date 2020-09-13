@@ -6,19 +6,15 @@
         <div class="column is-6">
           <div class="box">
             <div class="container">
-
               <b-field label="E-post">
                 <b-input type="email" required v-model="input"></b-input>
               </b-field>
-
               <b-field label="Lösenord">
-                <b-input type="password" required value="" password-reveal></b-input>
+                <b-input type="password" required value="" v-model="password" password-reveal></b-input>
               </b-field>
-
               <b-field>
                 <b-input type="button" value="Logga in" @click.native="signIn"></b-input>
               </b-field>
-
             </div>
           </div>
         </div>
