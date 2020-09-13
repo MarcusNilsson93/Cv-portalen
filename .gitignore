@@ -391,3 +391,5 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
+/API_CVPortalen/TempSqlite.db
+/API_CVPortalen/Migrations/*
