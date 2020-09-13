@@ -7,7 +7,7 @@ namespace API_CVPortalen.Helpers.Users
     {
         public static User ToUser(this Models.Auth.RegisterRequest request)
         {
-            return new User {FirstName = request.FirstName, LastName = request.LastName, Email = request.Email};
+            return new User {FirstName = request.FirstName, LastName = request.LastName, Email = request.Email, ProgrammeId = request.ProgrammeId};
         }
         public static User ToUser(this Models.Auth.UpdateRequest request)
         {
