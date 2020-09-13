@@ -6,6 +6,7 @@ CVPortalen API documentation
 Updated: 10 sep 2020
 
 setup
+***Not valid anymore. Using Sqlite durring development.***
 (assuming you got SqlServer installed with an empty database. 
 https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 
@@ -13,9 +14,14 @@ https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
 2. install entityframework using console: dotnet tool install --global dotnet-ef
 (On linux you may have to add to your paths by: ‘export PATH="$PATH:$HOME/.dotnet/tools/"’)
 3. cd to project folder and run: dotnet restore
+
+***No need to change the connectionstring anymore.Skip 4***
 4. inside the project open the file ‘appsettings.json’ and change the defaultconnection string to your database.
-5. run  dotnet ef migrations add inital --project API_CVPortalen
-6. run dotnet ef database update --project API_CVPortalen
+
+5. run  'dotnet ef migrations add inital' 
+//else try: ***dotnet ef migrations add inital --project API_CVPortalen***
+6. run 'dotnet ef database update' 
+//else try ***dotnet ef database update --project API_CVPortalen***
 
 
 
