@@ -35,7 +35,8 @@ namespace API_CVPortalen
             var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Context>(options => 
             {
-                options.UseSqlServer(connectionString);
+                //options.UseSqlServer(connectionString);
+                options.UseSqlite(connectionString);
                 options.UseLazyLoadingProxies();
             });
 
