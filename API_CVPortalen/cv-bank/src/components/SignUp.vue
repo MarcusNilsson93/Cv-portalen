@@ -24,7 +24,7 @@
                 </b-field>
 
                 <b-field>
-                    <b-input type="button" value="Registrera" @click.native="checkForValidEmail"></b-input>
+                    <b-input type="button" value="Registrera" @click.native="signUp"></b-input>
                 </b-field>
 
             </div>
@@ -35,20 +35,27 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.use(VueAxios,axios)
 export default {
   name: "SignUp",
   data() {
     return {
       input: "",
-      fullEmail: ""
     };
   },
   methods: {
-    checkForValidEmail() {
-        this.fullEmail = this.input + '@iths.se'
-      console.log(this.fullEmail)
+    signUp(){
+                            //Sökväg till userlistan
+      Vue.axios.get('http://site.com/api/user/id')
+      .then((resp)=>{
+        console.log(resp.data.data)
+      })
     }
   }
+  
 };
 </script>
 <style scoped>
