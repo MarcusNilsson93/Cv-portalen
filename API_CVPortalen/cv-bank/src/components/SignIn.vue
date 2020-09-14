@@ -23,6 +23,7 @@
   </div>
 </template>
 <script>
+//import authAction from "@/components/Actions/handlers/Account"
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -34,13 +35,20 @@ export default {
       input: "",
     };
   },
-  methods: {
-    signIn(){
+methods: {
+    async signIn(){
+      //await authAction("login", this.OnSuccess,  {"email":this.input, "password":this.password});
                             //Sökväg till userlistan
-      Vue.axios.get('http://site.com/api/user/id')
-      .then((resp)=>{
-        console.log(resp.data.data)
-      })
+       Vue.axios.post("https://localhost:5001/api/user/authenticate", {"email":this.input, "password":this.password})
+       .then((resp)=>{
+         console.log(resp)
+         console.log(resp.data)
+         localStorage.setItem('userData', JSON.stringify(resp.data))
+       })
+    },
+    OnSuccess(){
+
+      console.log("Jag är glad")
     }
   }
   
