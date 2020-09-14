@@ -25,6 +25,8 @@ namespace API_CVPortalen.Models.Auth
 
         [Required]
         public string Password { get; set; }
+        
+        public int ProgrammeId { get; set; }
     }
 
     public class UpdateRequest
