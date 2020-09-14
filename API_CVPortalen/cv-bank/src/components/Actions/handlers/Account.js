@@ -14,17 +14,17 @@ const actionType = async (type, data) => {
 }
 
 const authAction = async (type, onSuccess, data) => {
-    console.log(data);
-    console.log(type);
+    // console.log(data);
+    // console.log(type);
     try {
         const response = await actionType(type, data);
         if (response.status === 200 || response.status === 201) {
-            const result = await response.json();
+            const result = response.data
             if (result.error) {
                 alert(result.error);
                 return;
             }
-            console.log("old", localStorage["userData"], "new", result);
+           // console.log("old", localStorage["userData"], "new", result);
             localStorage.setItem("userData", JSON.stringify(result));
             onSuccess();
         }
