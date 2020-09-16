@@ -18,14 +18,14 @@ export const login = async user => fetch(apiUrl+"api/user/authenticate", {
     credentials: 'include',
     body: JSON.stringify(user)
 });
-export const register = async user => fetch(apiUrl+"api/account/register", {
+export const register = async user => fetch(apiUrl+"api/user/register", {
     headers: baseHeaders(),
     method: 'post',
     credentials: 'include',
     body: JSON.stringify(user)
 });
 
-export const logout = async () => fetch(apiUrl+"api/account/logout", {
+export const logout = async () => fetch(apiUrl+"api/user/logout", {
     headers: baseHeaders(),
     method: 'post',
     credentials: 'include'
@@ -67,10 +67,13 @@ export const loggedIn = async () => {
         method: 'get',
         credentials: 'include'
     })
-    switch (response.status) {
-        case 200:
-            return true;
-        default:
-            return false;
+    if(response.status === 200){
+        return true;
+    }else
+    {
+        if (localStorage["userData"]) {
+            localStorage.removeItem("userData")
+        }
+        return false
     }
 };

@@ -52,7 +52,7 @@ namespace API_CVPortalen.Controllers
             try
             {
                 var user = await _userService.Create(request.ToUser(), request.Password);
-                return Ok(new {id = user.Id});
+                return Ok("Success!");
             }
             catch (AppException e)
             {

@@ -14,15 +14,19 @@ const actionType = async (type, data) => {
 }
 
 const authAction = async (type, onSuccess, data) => {
-    try {
         const response = await actionType(type, data);
         if (response.status === 200 || response.status === 201) {
             const result = await response.json();
-            if (result.error) {
-                console.error("AuthAction result error: ",result.error);
-                return;
+            if (result){
+                if (result.error) {
+                    console.error("AuthAction result error: ",result.error);
+                    return;
+                }
+                if (result.token){
+                    localStorage.setItem("userData", JSON.stringify(result))
+                }
             }
-            localStorage.setItem("userData", JSON.stringify(result));
+
             onSuccess();
         }
         else if(response.status === 400)
@@ -36,9 +40,6 @@ const authAction = async (type, onSuccess, data) => {
         else
             alert(response.status)
             //throw new Error(response.status);
-    } catch (error) {
-        console.log(error)
-    }
 }
 
 export default authAction;

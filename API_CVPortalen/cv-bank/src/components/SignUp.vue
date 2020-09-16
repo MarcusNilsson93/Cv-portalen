@@ -72,17 +72,12 @@ export default {
        "programmeId":this.selected.id} )
     },
 async getProgrammes(){
-    let response = await get("programme")
-    console.log(response)
-    if(response.status === 200){
-      this.educations = response.data
-    }else{
-      console.log("no programs found")
-    }      
+    this.educations =  await get("programme").then(res => res.json())
+    
 },
     onRegisterSuccess(){
       //If registration is succesfull you will be directed to the signIn page
-      window.location.replace("/usertoken")
+      window.location.replace("/login")
     },
   }
 }
