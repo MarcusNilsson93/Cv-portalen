@@ -10,7 +10,7 @@
                 <b-input type="email" required v-model="input"></b-input>
               </b-field>
               <b-field label="Lösenord">
-                <b-input type="password" required value="" v-model="password" password-reveal></b-input>
+                <b-input type="password" v-model="password" required value="" password-reveal></b-input>
               </b-field>
               <b-field>
                 <b-input type="button" value="Logga in" @click.native="signIn"></b-input>
@@ -23,33 +23,25 @@
   </div>
 </template>
 <script>
-//import authAction from "@/components/Actions/handlers/Account"
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios,axios)
+import authAction from "@/components/Actions/handlers/Account"
+import {get} from '@/components/Actions/Api'
 export default {
   name: "SignIn",
   data() {
     return {
       input: "",
+      password: ""
     };
   },
-methods: {
-    async signIn(){
-      //await authAction("login", this.OnSuccess,  {"email":this.input, "password":this.password});
-                            //Sökväg till userlistan
-       Vue.axios.post("https://localhost:5001/api/user/authenticate", {"email":this.input, "password":this.password})
-       .then((resp)=>{
-         console.log(resp)
-         console.log(resp.data)
-         localStorage.setItem('userData', JSON.stringify(resp.data))
-       })
+  methods: {
+    signIn(){
+      authAction("login", this.onLoginSuccess, {"Email":this.input,
+       "password":this.password} )
     },
-    OnSuccess(){
-
-      console.log("Jag är glad")
-    }
+    onLoginSuccess(){
+      //if the login sucseeds you will be directed to your profile page
+      window.location.replace("/usertoken")
+    },
   }
   
 };

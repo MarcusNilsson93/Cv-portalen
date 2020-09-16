@@ -8,59 +8,28 @@
             <div class="container">
 
                 <b-field label="Förnamn">
-                    <b-input required type="text"></b-input>  
+                    <b-input required type="text" v-model="firstName"></b-input>  
                 </b-field>
 
                 <b-field label="Efternamn">
-                    <b-input required type="text"></b-input>   
+                    <b-input required type="text" v-model="lastName"></b-input>   
                 </b-field>
 
                 <b-field label="Utbildning">
-            <b-select placeholder="Välj din utbildning" v-model="educationId">
-                <option value="Applikationsutveckling">
-                    Applikationsutveckling
-                </option>
-                <option value="Javascript-utveckling">
-                    Javascript-utveckling
-                </option>
-                <option value= 2>
-                    .Netutveckling
-                </option>
-                <option value="Webutveckling-med-react">
-                    Webutveckling med react
-                </option>
-                <option value="Molnutveckling">
-                    Molnutveckling
-                </option>
-                <option value="Agil-testautomatiserare">
-                    Agil testautomatiserare
-                </option>
-                <option value="UX-designer">
-                    UX-designer
-                </option>
-                <option value="It-Projektledare">
-                    It-Projektledare
-                </option>
-                <option value="Frontendutvecklare">
-                    Frontendutvecklare
-                </option>
-                <option value= 3>
-                    Javautvecklare
-                </option>
-                <option value="Mjukvarutestare">
-                    Mjukvarutestare
-                </option>
-                <option value= 1>
-                    Webutvecklare
-                </option>
-            </b-select>
-        </b-field>
+                    <b-select placeholder="Välj din utbildning" v-model="selected">
+                      <option  v-for="education in educations" v-bind:value="{ id: education.id, name: education.name }"
+                      v-bind:key="`eductation-${education.id}`">
+                        {{education.name}}
+                      </option>
+                    </b-select>
+                </b-field>
+
                 <b-field label="E-post">
                     <b-input type="email" required v-model="input" id="emailfield"></b-input>
                 </b-field>
 
                 <b-field label="Lösenord">
-                    <b-input required type="password" value="" password-reveal></b-input>
+                    <b-input v-model="password" required type="password" value="" password-reveal></b-input>
                 </b-field>
 
                 <b-field>
@@ -74,35 +43,50 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios,axios)
+import authAction from "@/components/Actions/handlers/Account";
+import {get} from '@/components/Actions/Api'
+import router from '@/router/index.js'
 export default {
   name: "SignUp",
+  mounted(){
+    this.getProgrammes()    
+  },
   data() {
     return {
+      selected: "",
+      educations: [],
       input: "",
-      educationId: Number
+      firstName: "",
+      lastName: "",
+      password:""
     };
   },
   methods: {
-    signUp(){
-     Vue.axios.post("https://localhost:5001/api/user/register",
-      {"email":this.input,
-       "password":this.password,
-       "firstName":"jdisa",
-       "lastName": "sad",
-       "programmeId": this.educationId})
-       .then((resp)=>{
-         console.log(resp)
-         console.log(resp.data)
-         //localStorage.setItem('userData', JSON.stringify(resp.data))
-       })
-    }
+     async signUp(){
+       console.log('in signUp')
+       console.log(this.selected.id)
+      await authAction ("register", this.onRegisterSuccess, 
+      {"FirstName": this.firstName,
+       "LastName": this.lastName,
+        "Email": this.input,
+       "Password":this.password,
+       "programmeId":this.selected.id} )
+    },
+async getProgrammes(){
+    let response = await get("programme")
+    console.log(response)
+    if(response.status === 200){
+      this.educations = response.data
+    }else{
+      console.log("no programs found")
+    }      
+},
+    onRegisterSuccess(){
+      //If registration is succesfull you will be directed to the signIn page
+      window.location.replace("/usertoken")
+    },
   }
-  
-};
+}
 </script>
 <style scoped>
 /*Exempel css*/
