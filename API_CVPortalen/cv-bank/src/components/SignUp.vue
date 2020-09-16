@@ -45,7 +45,6 @@
 <script>
 import authAction from "@/components/Actions/handlers/Account";
 import {get} from '@/components/Actions/Api'
-import router from '@/router/index.js'
 export default {
   name: "SignUp",
   mounted(){

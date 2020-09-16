@@ -24,7 +24,6 @@
 </template>
 <script>
 import authAction from "@/components/Actions/handlers/Account"
-import {get} from '@/components/Actions/Api'
 export default {
   name: "SignIn",
   data() {
