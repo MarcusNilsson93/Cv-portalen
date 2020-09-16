@@ -9,3 +9,9 @@ export const getCurrentUser = () => {
         return null
     }
 }
+
+export const Logout = () => {
+    if (localStorage["userData"]){
+        localStorage.removeItem("userData")
+    }
+}
