@@ -4,12 +4,13 @@
       <router-link to="/" v-if="!loggedin">Logga in</router-link> |
       <router-link to="/sign-up" v-if="!loggedin">Registrera</router-link>
       <router-link to="/profile" v-else>Profile</router-link>
-      | <button class="button is-primary">Logga ut</button>
+      | <button class="button is-primary" @click="logout">Logga ut</button>
     </div>
     <router-view/>
   </div>
 </template>
 <script>
+import {Logout} from "@/Helpers/UserHandler"
 import {loggedIn} from "@/components/Actions/Api"
 export default {
   data(){
@@ -23,6 +24,10 @@ export default {
   methods: {
       async checkLogin(){
       this.loggedin = await loggedIn()
+    },
+    logout(){
+      Logout()
+      window.location.replace("/")
     }
   }
 }

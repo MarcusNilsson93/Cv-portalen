@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Login.vue'
+import Login from '../views/Login.vue'
 import AcountPage from '../views/Acount.vue'
-import UserProfile from "@/components/UserProfile";
+import {loggedIn} from "@/components/Actions/Api"
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'Login',
+    component: Login
   },
   {
     path: '/sign-up',
@@ -20,16 +20,14 @@ Vue.use(VueRouter)
     // which is lazy-loaded when the route is visited.
     component: () => import('../views/Signup.vue')
   },
-  {
-    path: '/usertoken',
-    name: 'AcountPage',
-    component: AcountPage
-  },
     {
       path: '/profile',
       name: 'UserProfile',
-      
-      component: UserProfile
+      component: async () => (await loggedIn === true ? AcountPage : Login)
+    },
+    {
+      path: '*',
+      component: Login
     }
 ]
 

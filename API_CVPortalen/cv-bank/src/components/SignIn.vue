@@ -39,7 +39,7 @@ export default {
     },
     onLoginSuccess(){
       //if the login sucseeds you will be directed to your profile page
-      window.location.replace("/usertoken")
+      window.location.replace("/profile")
     },
   }
   
