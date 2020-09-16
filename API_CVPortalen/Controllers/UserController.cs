@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API_CVPortalen.Helpers;
 using API_CVPortalen.Helpers.Users;
@@ -129,6 +130,14 @@ namespace API_CVPortalen.Controllers
                 return BadRequest(new {error = e.Message});
             }
 
+        }
+        
+        [HttpGet]
+        [Authorize]
+        [Route("loggedin")]
+        public ActionResult IsLoggedIn()
+        {
+            return Ok();
         }
     }
 }

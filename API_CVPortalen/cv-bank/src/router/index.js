@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Login.vue'
 import AcountPage from '../views/Acount.vue'
+import UserProfile from "@/components/UserProfile";
 
 Vue.use(VueRouter)
 
@@ -23,13 +24,19 @@ Vue.use(VueRouter)
     path: '/usertoken',
     name: 'AcountPage',
     component: AcountPage
-  }
+  },
+    {
+      path: '/profile',
+      name: 'UserProfile',
+      
+      component: UserProfile
+    }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 })
 
 export default router

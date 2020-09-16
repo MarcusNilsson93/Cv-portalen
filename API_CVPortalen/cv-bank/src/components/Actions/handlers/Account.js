@@ -5,7 +5,7 @@ const actionType = async (type, data) => {
         login: login,
        // logout: logout, //not in backend yet. 
         register: register,
-        loggedin: loggedIn, // not in backend yet. 
+        loggedIn: loggedIn, // not in backend yet. 
         default: () => {
             return { status: 501, error: "Requested action does not exist." }
         }

@@ -53,12 +53,12 @@ export const post = async (controller, obj) => axios.post(apiUrl +"api/" + contr
 
 //not implemented in backend.
 export const loggedIn = async () => {
-    const response = await fetch(apiUrl +"api/account/loggedin", {
+    const response = await axios.get(apiUrl +"api/user/loggedin", {
         headers: baseHeaders(),
         method: 'get',
         credentials: 'include'
     })
-        .catch(error => error.status);
+    console.log(response)
     switch (response.status) {
         case 200:
             console.log();
