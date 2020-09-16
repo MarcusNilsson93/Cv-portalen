@@ -1,21 +1,27 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/" v-if="!loggedin">Logga in</router-link> |
-      <router-link to="/sign-up" v-if="!loggedin">Registrera</router-link>
-      <router-link to="/profile" v-else>Profile</router-link>
-      | <button class="button is-primary" @click="logout">Logga ut</button>
+      <div v-if="!loggedin">
+        <router-link to="/login">Logga in</router-link> |
+        <router-link to="/sign-up">Registrera</router-link>
+      </div>
+      <div v-else>
+        <router-link to="/profile">Profile</router-link> 
+        <router-link to="/admin_dashboard" v-if="currentUser.role === 'Admin'"> | Admin Dashboard</router-link>
+        <button class="button is-danger is-pulled-right"  @click="logout">Logga ut</button>
+      </div>
     </div>
     <router-view/>
   </div>
 </template>
 <script>
-import {Logout} from "@/Helpers/UserHandler"
+import {getCurrentUser, Logout} from "@/Helpers/UserHandler"
 import {loggedIn} from "@/components/Actions/Api"
 export default {
   data(){
     return{
-      loggedin: false
+      loggedin: false,
+      currentUser: {}
     }
   },
   created(){
@@ -24,6 +30,7 @@ export default {
   methods: {
       async checkLogin(){
       this.loggedin = await loggedIn()
+        this.loggedin? this.currentUser = getCurrentUser(): null;
     },
     logout(){
       Logout()

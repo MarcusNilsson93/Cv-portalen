@@ -1,40 +1,98 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from 'vue-router'
 import Login from '../views/Login.vue'
-import AcountPage from '../views/Acount.vue'
-import {loggedIn} from "@/components/Actions/Api"
+import Profile from '../views/Profile'
+import AdminPage from "@/views/AdminPage";
+import Home from "@/views/Home";
 
-Vue.use(VueRouter)
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/sign-up',
-    name: 'SignUp',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('../views/Signup.vue')
-  },
+Vue.use(Router)
+
+let router = new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      component: Home,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/sign-up',
+      name: 'SignUp',
+      meta: {
+        guest: true
+      },
+      component: () => import('@/views/Signup.vue'),
+
+    },
     {
       path: '/profile',
       name: 'UserProfile',
-      component: async () => (await loggedIn === true ? AcountPage : Login)
+      meta: {
+        requireAuth: true,
+        requireAdmin: false
+      },
+      component: Profile
+    },
+    {
+      path: '/admin_dashboard',
+      name: 'AdminDashboard',
+      meta: {
+        requireAuth: true,
+        requireAdmin: true
+      },
+      component: AdminPage
     },
     {
       path: '*',
       component: Login
     }
-]
+  ]
+});
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
-})
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requireAuth)) {
+    if (localStorage.getItem('userData') == null) {
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    } else {
+      let user = JSON.parse(localStorage.getItem('userData'))
+      if(to.matched.some(record => record.meta.requireAdmin)) {
+        if(user.role === "Admin"){
+          next()
+        }
+        else{
+          next({ name: 'UserProfile'})
+        }
+      }
+    else {
+        next()
+      }
+    }
+  } else if(to.matched.some(record => record.meta.guest)) {
+    if(localStorage.getItem('userData') == null){
+      next()
+    }
+    else{
+      next({ name: 'UserProfile'})
+    }
+  }else {
+    next()
+  }
+});
 
 export default router
+

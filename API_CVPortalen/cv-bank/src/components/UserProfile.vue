@@ -40,7 +40,7 @@ export default {
         if (userdata){
           console.log(userdata)
           this.user = userdata
-          this.user.programme = await this.getProgrammeName(this.user.programmeId)
+          this.user.programme = await this.getProgrammeName(userdata.programmeId)
         }
         else{
           console.log("No user")
@@ -49,7 +49,7 @@ export default {
       this.loading =false
     },
     async getProgrammeName(id){
-      let programme = (await get("programme/" + id)).data
+      let programme = await get("programme/" + id).then(res => res.json())
       if (programme.name)
         return programme.name
       return "Error / none"

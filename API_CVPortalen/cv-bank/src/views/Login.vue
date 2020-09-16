@@ -10,7 +10,7 @@
 import SignIn from '@/components/SignIn.vue'
 
 export default {
-  name: 'Home',
+  name: 'Login',
   components: {
     SignIn
   }

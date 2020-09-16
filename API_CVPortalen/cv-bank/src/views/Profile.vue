@@ -1,5 +1,5 @@
 <template>
-<div class="acountpage">
+<div class="user_profile">
     <UserProfile></UserProfile>
 </div>
 </template>

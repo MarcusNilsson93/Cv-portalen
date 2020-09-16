@@ -25,6 +25,7 @@
       <b-skeleton size="is-large" :active="loading" :count="2"></b-skeleton>
     </div>
   </div>
+    <span>(just placeholders)</span>
   <footer class="card-footer">
     <a class="card-footer-item">
       <template v-if="!loading">Save</template>
