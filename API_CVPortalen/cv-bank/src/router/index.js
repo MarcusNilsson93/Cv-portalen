@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Profile from '../views/Profile'
 import AdminPage from "@/views/AdminPage";
 import Home from "@/views/Home";
+import {ValidatePathRules} from "@/router/ValidatePathRules";
 
 
 Vue.use(Router)
@@ -41,7 +42,6 @@ let router = new Router({
       name: 'UserProfile',
       meta: {
         requireAuth: true,
-        requireAdmin: false
       },
       component: Profile
     },
@@ -61,39 +61,7 @@ let router = new Router({
   ]
 });
 
-router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requireAuth)) {
-    if (localStorage.getItem('userData') == null) {
-      next({
-        path: '/login',
-        params: { nextUrl: to.fullPath }
-      })
-    } else {
-      let user = JSON.parse(localStorage.getItem('userData'))
-      if(to.matched.some(record => record.meta.requireAdmin)) {
-        if(user.role === "Admin"){
-          next()
-        }
-        else{
-          next({ name: 'UserProfile'})
-        }
-      }
-    else {
-        next()
-      }
-    }
-  } 
-  else if(to.matched.some(record => record.meta.guest)) {
-    if(localStorage.getItem('userData') == null){
-      next()
-    }
-    else{
-      next({ name: 'UserProfile'})
-    }
-  }else {
-    next()
-  }
-});
+router.beforeEach((to, from, next) => ValidatePathRules(to, from, next))
 
 export default router
 
