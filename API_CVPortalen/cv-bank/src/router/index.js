@@ -5,6 +5,8 @@ import Profile from '../views/Profile'
 import AdminPage from "@/views/AdminPage";
 import Home from "@/views/Home";
 import {ValidatePathRules} from "@/router/ValidatePathRules";
+import ProgrammeRoot from "@/views/ProgrammeRoot";
+import ProgrammeProfile from "@/views/ProgrammeProfile";
 
 
 Vue.use(Router)
@@ -44,6 +46,21 @@ let router = new Router({
         requireAuth: true,
       },
       component: Profile
+    },
+    {
+      path: '/programmes',
+      name: 'ProgrammeRoot',
+      meta: {
+        requireAuth: true,
+      },
+      component: ProgrammeRoot,
+    },
+    {
+      path: '/programme/:id',
+      meta: {
+        requireAuth: true,
+      },
+      component: ProgrammeProfile,
     },
     {
       path: '/admin_dashboard',

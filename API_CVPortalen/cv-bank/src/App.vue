@@ -6,7 +6,8 @@
         <router-link to="/sign-up">Registrera</router-link>
       </div>
       <div v-else>
-        <router-link to="/profile">Profile</router-link> 
+        <router-link to="/profile">Profile</router-link>
+        <router-link to="/programmes"> | Search</router-link>
         <router-link to="/admin_dashboard" v-if="currentUser.role === 'Admin'"> | Admin Dashboard</router-link>
         <button class="button is-danger is-pulled-right"  @click="logout">Logga ut</button>
       </div>
@@ -34,7 +35,7 @@ export default {
     },
     logout(){
       Logout()
-      window.location.replace("/")
+      window.location.replace("/login")
     }
   }
 }

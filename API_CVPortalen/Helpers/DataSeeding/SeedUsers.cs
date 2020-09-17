@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using API_CVPortalen.Models;
 using API_CVPortalen.Models.Auth;
+using API_CVPortalen.Models.Programme;
 
 namespace API_CVPortalen.Helpers.DataSeeding
 {

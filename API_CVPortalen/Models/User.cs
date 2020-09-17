@@ -7,7 +7,7 @@ namespace API_CVPortalen.Models
     {
         public int Id { get; set; }
         public int ProgrammeId { get; set; } = ProgrammeBuilder.Empty.Id;
-        public virtual Programme Programme { get; set; }
+        public virtual Programme.Programme Programme { get; set; }
         
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }

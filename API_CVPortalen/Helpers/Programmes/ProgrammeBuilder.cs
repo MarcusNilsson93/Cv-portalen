@@ -1,5 +1,6 @@
 using System;
 using API_CVPortalen.Models;
+using API_CVPortalen.Models.Programme;
 
 namespace API_CVPortalen.Helpers.Programmes
 {
@@ -14,7 +15,7 @@ namespace API_CVPortalen.Helpers.Programmes
                 Id = 99999,
                 Start = DateTime.MinValue,
                 End = DateTime.MinValue,
-                Name = "Not Assigned"
+                Name = "Not Assigned",
             };
         }
     }

@@ -17,6 +17,7 @@ namespace API_CVPortalen.Models.Database
         }
 
         public DbSet<User> Users { get; set; } 
-        public DbSet<Programme> Programmes { get; set; }
+        public DbSet<Programme.Programme> Programmes { get; set; }
+        public DbSet<Programme.ProgrammeCategory> ProgrammeCategories { get; set; }
     }
 }
