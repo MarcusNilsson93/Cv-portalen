@@ -13,8 +13,8 @@ namespace API_CVPortalen.Helpers.Programmes
             return new Programme
             {
                 Id = 99999,
-                Start = DateTime.MinValue,
-                End = DateTime.MinValue,
+                Start = DateTime.MinValue.Date,
+                End = DateTime.MinValue.Date,
                 Name = "Not Assigned",
             };
         }

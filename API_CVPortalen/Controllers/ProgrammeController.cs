@@ -78,9 +78,9 @@ namespace API_CVPortalen.Controllers
                 return NotFound();
             }
 
-            if (_programme.Category != programme.Category)
+            if (_programme.CategoryId != programme.CategoryId)
             {
-                _programme.Category = programme.Category;
+                _programme.CategoryId = programme.CategoryId;
             }
 
             if (!string.IsNullOrEmpty(programme.Name))

@@ -12,7 +12,7 @@ namespace API_CVPortalen.Helpers.Programmes
         }
         public static object Short(this Programme programme)
         {
-            return new { programme.Id, programme.Name, programme.Category, programme.Start, programme.End, Enrolled = programme.Students.Count};
+            return new { programme.Id, programme.Name, programme.Category, Start=programme.Start.ToShortDateString(), End= programme.End.ToShortDateString(), Enrolled = programme.Students.Count};
         }
     }
 }

@@ -7,6 +7,7 @@ import Home from "@/views/Home";
 import {ValidatePathRules} from "@/router/ValidatePathRules";
 import ProgrammeRoot from "@/views/ProgrammeRoot";
 import ProgrammeProfile from "@/views/ProgrammeProfile";
+import AuthPage from "@/views/AuthPage";
 
 
 Vue.use(Router)
@@ -18,6 +19,14 @@ let router = new Router({
       path: '/',
       name: 'Home',
       component: Home,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: '/authenticate',
+      name: 'Authenticate',
+      component: AuthPage,
       meta: {
         guest: true
       }

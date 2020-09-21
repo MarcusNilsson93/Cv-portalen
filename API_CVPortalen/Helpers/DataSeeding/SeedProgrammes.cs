@@ -14,9 +14,9 @@ namespace API_CVPortalen.Helpers.DataSeeding
             return new[]
             {
                 ProgrammeBuilder.Empty,
-                new Programme{Id=1, Start = DateTime.Parse("2000-01-02"), End = DateTime.Parse("2002-01-02"), Name = "Webb00", CategoryId = 1},
-                new Programme{Id=2, Start = DateTime.Parse("2000-01-02"), End = DateTime.Parse("2002-01-02"), Name = "DotNet00", CategoryId=2},
-                new Programme{Id=3, Start = DateTime.Parse("2000-01-02"), End = DateTime.Parse("2002-01-02"), Name = "Java00", CategoryId = 3},
+                new Programme{Id=1, Start = DateTime.Parse("2000-01-02").Date, End = DateTime.Parse("2002-01-02").Date, Name = "Webb00", CategoryId = 1},
+                new Programme{Id=2, Start = DateTime.Parse("2000-01-02").Date, End = DateTime.Parse("2002-01-02").Date, Name = "DotNet00", CategoryId=2},
+                new Programme{Id=3, Start = DateTime.Parse("2000-01-02").Date, End = DateTime.Parse("2002-01-02").Date, Name = "Java00", CategoryId = 3},
             };
         }
     }
@@ -26,10 +26,10 @@ namespace API_CVPortalen.Helpers.DataSeeding
         {
             return new[]
             {
-                new ProgrammeCategory{Id = 1, Name = "Webbutvecklare"},
-                new ProgrammeCategory{Id= 2, Name= ".NetUtvecklare"},
-                new ProgrammeCategory{Id = 3,Name = "JavaUtvecklare"},
-                new ProgrammeCategory{Id = 99999, Name = "Not Assigned"}, 
+                new ProgrammeCategory{ProgrammeCategoryId  = 1, Name = "Webbutvecklare"},
+                new ProgrammeCategory{ProgrammeCategoryId = 2, Name= ".NetUtvecklare"},
+                new ProgrammeCategory{ProgrammeCategoryId  = 3,Name = "JavaUtvecklare"},
+                new ProgrammeCategory{ProgrammeCategoryId  = 99999, Name = "Not Assigned"}, 
             };
         }
     }

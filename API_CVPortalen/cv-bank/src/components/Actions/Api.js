@@ -45,7 +45,7 @@ export const put = async (controller, id, obj) => fetch(apiUrl+"api/" + controll
     body: JSON.stringify(obj)
 });
 
-export const remove = async (controller, obj) => fetch(apiUrl+"api/" + controller + obj.id, {
+export const remove = async (controller, id) => fetch(apiUrl+"api/" + controller +"/"+ id, {
     headers: baseHeaders(),
     method: 'delete',
     credentials: 'include'
